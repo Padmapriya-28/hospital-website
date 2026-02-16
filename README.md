@@ -1,4 +1,4 @@
-# 🏥 MediCare Hospital - Professional Hospital Management Website
+# 🏥 Riya Medicare- Professional Hospital Management Website
 
 A modern, responsive hospital management website with a professional dark medical theme. Built with HTML5, CSS3, and Vanilla JavaScript.
 
