@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact MediCare Hospital - Get in Touch with Us">
+    <title>Contact Us - RIYA MEDICARE Hospital</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <div class="icon">⚕️</div>
+                <span>RIYA MEDICARE</span>
+            </div>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="./index.html" class="navbar-link">Home</a></li>
+                <li class="navbar-item"><a href="./services.html" class="navbar-link">Services</a></li>
+                <li class="navbar-item"><a href="./doctors.html" class="navbar-link">Doctors</a></li>
+                <li class="navbar-item"><a href="./appointments.html" class="navbar-link">Book Appointment</a></li>
+                <li class="navbar-item"><a href="./my-appointments.html" class="navbar-link">My Appointments</a></li>
+                <li class="navbar-item"><a href="./about.html" class="navbar-link">About</a></li>
+                <li class="navbar-item"><a href="./contact.html" class="navbar-link active">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you. Get in touch with us today!</p>
+        </div>
+    </section>
+
+    <!-- ============ CONTACT INFORMATION ============ -->
+    <section class="section">
+        <div class="container">
+            <div class="grid">
+                <!-- Address -->
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">📍</div>
+                    <h3>Visit Us</h3>
+                    <p>
+                        MediCare Hospital<br>
+                        123 Medical Plaza<br>
+                        Health City, HC 12345<br>
+                        United States
+                    </p>
+                </div>
+
+                <!-- Phone -->
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">📞</div>
+                    <h3>Call Us</h3>
+                    <p>
+                        Main Line: <strong>+91-44-6789-0100</strong><br>
+                        Direct Line: <strong>+91-44-6789-0101</strong><br>
+                        Appointment Desk: <strong>+91-44-6789-0102</strong><br>
+                        Emergency: <strong style="color: var(--accent-red);">108</strong>
+                    </p>
+                </div>
+
+                <!-- Email -->
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">📧</div>
+                    <h3>Email Us</h3>
+                    <p>
+                        General: <a href="mailto:info@medicare.com">info@medicare.com</a><br>
+                        Appointment Desk: <a href="mailto:appointments@riyamedicare.com">appointments@riyamedicare.com</a><br>
+                        Support: <a href="mailto:support@riyamedicare.com">support@riyamedicare.com</a>
+                    </p>
+                </div>
+
+                <!-- Hours -->
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: var(--spacing-md);">🕐</div>
+                    <h3>Hours</h3>
+                    <p>
+                        Emergency: <strong>24/7</strong><br>
+                        Outpatient: <strong>Mon-Fri 8AM-8PM</strong><br>
+                        Saturday: <strong>9AM-5PM</strong><br>
+                        Sunday: <strong>10AM-4PM</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONTACT FORM ============ -->
+    <section class="section" style="background-color: var(--bg-tertiary);">
+        <div class="container">
+            <div style="max-width: 700px; margin: 0 auto;">
+                <div class="section-header">
+                    <h2 class="section-title">Send Us a Message</h2>
+                    <p class="section-subtitle">Fill in the form below and we'll get back to you as soon as possible</p>
+                </div>
+
+                <form id="contactForm" class="card">
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label for="full-name">🧑 Full Name *</label>
+                        <input 
+                            type="text" 
+                            id="full-name"
+                            name="full-name" 
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">📧 Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="email"
+                            name="email" 
+                            placeholder="Enter your email address"
+                            required
+                        >
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="form-group">
+                        <label for="phone">📱 Phone Number *</label>
+                        <input 
+                            type="tel" 
+                            id="phone"
+                            name="phone" 
+                            placeholder="Enter your phone number"
+                            required
+                        >
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="form-group">
+                        <label for="subject">📝 Subject *</label>
+                        <input 
+                            type="text" 
+                            id="subject"
+                            name="subject" 
+                            placeholder="What is this regarding?"
+                            required
+                        >
+                    </div>
+
+                    <!-- Message -->
+                    <div class="form-group">
+                        <label for="message">💬 Message *</label>
+                        <textarea 
+                            id="message"
+                            name="message" 
+                            placeholder="Please share your message or inquiry in detail..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                        📬 Send Message
+                    </button>
+
+                    <p style="color: var(--text-tertiary); font-size: 0.875rem; margin-top: var(--spacing-md); text-align: center;">
+                        * Required fields
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ EMERGENCY CONTACT ============ -->
+    <section class="section">
+        <div class="container">
+            <div class="emergency">
+                <h2>🚨 Medical Emergency?</h2>
+                <div class="emergency-number">911</div>
+                <p class="emergency-text">Call emergency services immediately or visit our Emergency Department</p>
+                <button class="btn btn-danger btn-lg btn-emergency">Call Emergency</button>
+                <p style="color: var(--text-secondary); margin-top: var(--spacing-md);">
+                    Our Emergency Department is open 24/7 with fully staffed facilities and experienced physicians
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ DEPARTMENTS ============ -->
+    <section class="section" style="background-color: var(--bg-tertiary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Department Directory</h2>
+                <p class="section-subtitle">Direct contact information for specific departments</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-lg);">
+                <div style="padding: var(--spacing-lg); background: var(--bg-dark); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <h4 style="margin-bottom: var(--spacing-sm);">Emergency Department</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">24/7 availability</p>
+                    <p style="color: var(--accent-red); font-weight: 600; margin-top: var(--spacing-sm);">911</p>
+                </div>
+
+                <div style="padding: var(--spacing-lg); background: var(--bg-dark); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <h4 style="margin-bottom: var(--spacing-sm);">Outpatient Services</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Mon-Fri 8AM-8PM</p>
+                    <p style="color: var(--primary-color); font-weight: 600; margin-top: var(--spacing-sm);">+1-555-0102</p>
+                </div>
+
+                <div style="padding: var(--spacing-lg); background: var(--bg-dark); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <h4 style="margin-bottom: var(--spacing-sm);">Cardiology</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Heart and vascular care</p>
+                    <p style="color: var(--primary-color); font-weight: 600; margin-top: var(--spacing-sm);">+1-555-0103</p>
+                </div>
+
+                <div style="padding: var(--spacing-lg); background: var(--bg-dark); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <h4 style="margin-bottom: var(--spacing-sm);">Neurology</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Brain and nervous system</p>
+                    <p style="color: var(--primary-color); font-weight: 600; margin-top: var(--spacing-sm);">+1-555-0104</p>
+                </div>
+
+                <div style="padding: var(--spacing-lg); background: var(--bg-dark); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <h4 style="margin-bottom: var(--spacing-sm);">Orthopedics</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Bone and joint care</p>
+                    <p style="color: var(--primary-color); font-weight: 600; margin-top: var(--spacing-sm);">+1-555-0105</p>
+                </div>
+
+                <div style="padding: var(--spacing-lg); background: var(--bg-dark); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <h4 style="margin-bottom: var(--spacing-sm);">Pediatrics</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Child healthcare</p>
+                    <p style="color: var(--primary-color); font-weight: 600; margin-top: var(--spacing-sm);">+1-555-0106</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SOCIAL MEDIA ============ -->
+    <section class="section">
+        <div class="container" style="text-align: center;">
+            <h2>Follow Us Online</h2>
+            <p class="mb-lg">Stay connected with us on social media for health tips and updates</p>
+            <div style="display: flex; gap: var(--spacing-lg); justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="btn btn-outline" style="border-radius: 50%; width: 50px; height: 50px; padding: 0; font-size: 1.5rem;">f</a>
+                <a href="#" class="btn btn-outline" style="border-radius: 50%; width: 50px; height: 50px; padding: 0; font-size: 1.5rem;">𝕏</a>
+                <a href="#" class="btn btn-outline" style="border-radius: 50%; width: 50px; height: 50px; padding: 0; font-size: 1.5rem;">📷</a>
+                <a href="#" class="btn btn-outline" style="border-radius: 50%; width: 50px; height: 50px; padding: 0; font-size: 1.5rem;">🎥</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About RIYA MEDICARE</h3>
+                    <p>Leading healthcare provider dedicated to delivering exceptional medical services with compassion and excellence.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./services.html">Services</a></li>
+                        <li><a href="./doctors.html">Doctors</a></li>
+                        <li><a href="./appointments.html">Appointments</a></li>
+                        <li><a href="./about.html">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>📞 Emergency: <strong>911</strong></li>
+                        <li>📞 Main: <strong>+1-555-0100</strong></li>
+                        <li>📧 <a href="mailto:info@medicare.com">info@medicare.com</a></li>
+                        <li>📍 123 Medical Plaza, Health City, HC 12345</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Hours of Operation</h3>
+                    <ul>
+                        <li>Emergency: <strong>24/7</strong></li>
+                        <li>Outpatient: <strong>Mon-Fri 8AM-8PM</strong></li>
+                        <li>Saturday: <strong>9AM-5PM</strong></li>
+                        <li>Sunday: <strong>10AM-4PM</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 RIYA MEDICARE Hospital. All rights reserved. | Privacy Policy | Terms of Service | Designed by PADMAPRIYA S</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ SCRIPTS ============ -->
+    <script src="./js/script.js"></script>
+</body>
+</html>
