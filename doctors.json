@@ -1,0 +1,58 @@
+{
+  "doctors": [
+    {
+      "id": 1,
+      "name": "Dr. Priya Anand",
+      "specialty": "Cardiology",
+      "experience": 12,
+      "bio": "Specializes in heart disease prevention and treatment with over a decade of experience.",
+      "email": "priya.anand@riyamedicare.com",
+      "phone": "+91-98765-43201"
+    },
+    {
+      "id": 2,
+      "name": "Dr. Rajesh Kumar",
+      "specialty": "Neurology",
+      "experience": 10,
+      "bio": "Expert in neurological disorders with advanced diagnostic and treatment techniques.",
+      "email": "rajesh.kumar@riyamedicare.com",
+      "phone": "+91-98765-43202"
+    },
+    {
+      "id": 3,
+      "name": "Dr. Meera Iyer",
+      "specialty": "Pediatrics",
+      "experience": 8,
+      "bio": "Dedicated to providing compassionate care for infants, children, and adolescents.",
+      "email": "meera.iyer@riyamedicare.com",
+      "phone": "+91-98765-43203"
+    },
+    {
+      "id": 4,
+      "name": "Dr. Arjun Nambiar",
+      "specialty": "Orthopedics",
+      "experience": 15,
+      "bio": "Board-certified orthopedic surgeon specializing in joints and bone health.",
+      "email": "arjun.nambiar@riyamedicare.com",
+      "phone": "+91-98765-43204"
+    },
+    {
+      "id": 5,
+      "name": "Dr. Divya Krishnan",
+      "specialty": "Ophthalmology",
+      "experience": 11,
+      "bio": "Experienced eye care specialist treating all vision-related conditions.",
+      "email": "divya.krishnan@riyamedicare.com",
+      "phone": "+91-98765-43205"
+    },
+    {
+      "id": 6,
+      "name": "Dr. Vikram Pillai",
+      "specialty": "General Surgery",
+      "experience": 14,
+      "bio": "Skilled general surgeon with expertise in minimally invasive procedures.",
+      "email": "vikram.pillai@riyamedicare.com",
+      "phone": "+91-98765-43206"
+    }
+  ]
+}
