@@ -450,6 +450,7 @@
                 </select>
                 <input type="date" id="dateFilter" onchange="filterAppointments()" placeholder="Filter by date">
                 <input type="text" id="searchFilter" onchange="filterAppointments()" placeholder="Search by patient name...">
+                <button class="action-btn btn-view" onclick="exportAppointmentsToExcel()" style="background-color: #10b981; color: white;">📥 Export Excel</button>
             </div>
 
             <!-- Appointments Table -->
@@ -506,6 +507,8 @@
 
     <!-- Scripts -->
     <script src="./js/auth.js"></script>
+    <!-- SheetJS Library for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
     <script>
         // Check admin login
         requireAdminLogin();
@@ -719,6 +722,83 @@
             });
 
             renderAppointments(filtered);
+        }
+
+        /**
+         * Export filtered appointments to Excel
+         */
+        function exportAppointmentsToExcel() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+            const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+
+            // Get currently filtered appointments
+            let filteredAppointments = allAppointments.filter(apt => {
+                let match = true;
+
+                if (statusFilter && apt.status !== statusFilter) {
+                    match = false;
+                }
+
+                if (dateFilter && apt.appointment_date !== dateFilter) {
+                    match = false;
+                }
+
+                if (searchFilter && !apt.patient_name.toLowerCase().includes(searchFilter)) {
+                    match = false;
+                }
+
+                return match;
+            });
+
+            if (filteredAppointments.length === 0) {
+                showAlert('No appointments to export!', 'info');
+                return;
+            }
+
+            // Transform appointments data for Excel
+            const excelData = filteredAppointments.map((apt, index) => ({
+                'S.No': index + 1,
+                'Appointment ID': apt.id || '',
+                'Patient Name': apt.patient_name || '',
+                'Email': apt.patient_email || '',
+                'Phone': apt.patient_phone || '',
+                'Doctor Name': apt.doctor || '',
+                'Appointment Date': formatDate(apt.appointment_date),
+                'Appointment Time': apt.appointment_time || '',
+                'Status': apt.status || '',
+                'Booked Date': formatDateTime(apt.created_at),
+                'Medical Notes': apt.message || ''
+            }));
+
+            // Create a workbook and add the data
+            const ws = XLSX.utils.json_to_sheet(excelData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Appointments');
+
+            // Adjust column widths
+            const columnWidths = [
+                { wch: 6 },   // S.No
+                { wch: 12 },  // Appointment ID
+                { wch: 20 },  // Patient Name
+                { wch: 25 },  // Email
+                { wch: 15 },  // Phone
+                { wch: 20 },  // Doctor Name
+                { wch: 18 },  // Appointment Date
+                { wch: 15 },  // Appointment Time
+                { wch: 12 },  // Status
+                { wch: 20 },  // Booked Date
+                { wch: 30 }   // Medical Notes
+            ];
+            ws['!cols'] = columnWidths;
+
+            // Generate filename with current date
+            const today = new Date().toISOString().split('T')[0];
+            const filename = `Hospital_Appointments_${today}.xlsx`;
+
+            // Trigger download
+            XLSX.writeFile(wb, filename);
+            showAlert('✅ Appointments exported successfully!', 'success');
         }
 
         /**

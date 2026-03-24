@@ -45,6 +45,11 @@
     <section class="section">
         <div class="container">
             <div style="max-width: 900px; margin: 0 auto;">
+                <!-- Export Controls -->
+                <div id="export-controls" style="display: none; margin-bottom: var(--spacing-lg); display: flex; gap: var(--spacing-md); justify-content: flex-end;">
+                    <button class="btn btn-primary btn-sm" onclick="exportToExcel()">📥 Download as Excel</button>
+                </div>
+
                 <!-- Empty State -->
                 <div id="empty-state" class="empty-state" style="display: none; text-align: center; padding: var(--spacing-2xl);">
                     <div style="font-size: 4rem; margin-bottom: var(--spacing-md);">📋</div>
@@ -101,6 +106,8 @@
 
     <script src="./js/script.js"></script>
     <script src="./js/auth.js"></script>
+    <!-- SheetJS Library for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
     <script>
         // Require patient login - redirect if not logged in
         requirePatientLogin();
@@ -110,15 +117,18 @@
             const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
             const emptyState = document.getElementById('empty-state');
             const appointmentsList = document.getElementById('appointments-list');
+            const exportControls = document.getElementById('export-controls');
 
             appointmentsList.innerHTML = '';
 
             if (appointments.length === 0) {
                 emptyState.style.display = 'block';
+                exportControls.style.display = 'none';
                 return;
             }
 
             emptyState.style.display = 'none';
+            exportControls.style.display = 'flex';
 
             const appointmentHTML = appointments.map((apt, index) => `
                 <div class="appointment-card">
@@ -162,6 +172,58 @@
             `).join('');
 
             appointmentsList.innerHTML = appointmentHTML;
+        }
+
+        /**
+         * Export appointments to Excel file
+         */
+        function exportToExcel() {
+            const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+            
+            if (appointments.length === 0) {
+                alert('No appointments to export!');
+                return;
+            }
+
+            // Get patient name from first appointment or localStorage
+            const patientName = appointments[0].name || 'Patient';
+            
+            // Transform appointments data for Excel
+            const excelData = appointments.map((apt, index) => ({
+                'S.No': index + 1,
+                'Patient Name': apt.name || '',
+                'Email': apt.email || '',
+                'Phone': apt.phone || '',
+                'Doctor Name': apt.doctor || '',
+                'Appointment Date': new Date(apt.date).toLocaleDateString('en-IN'),
+                'Appointment Time': apt.time || '',
+                'Message': apt.message || ''
+            }));
+
+            // Create a workbook and add the data
+            const ws = XLSX.utils.json_to_sheet(excelData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Appointments');
+
+            // Adjust column widths
+            const columnWidths = [
+                { wch: 6 },  // S.No
+                { wch: 20 }, // Patient Name
+                { wch: 25 }, // Email
+                { wch: 15 }, // Phone
+                { wch: 20 }, // Doctor Name
+                { wch: 18 }, // Appointment Date
+                { wch: 15 }, // Appointment Time
+                { wch: 30 }  // Message
+            ];
+            ws['!cols'] = columnWidths;
+
+            // Generate filename with current date
+            const today = new Date().toISOString().split('T')[0];
+            const filename = `${patientName}_Appointments_${today}.xlsx`;
+
+            // Trigger download
+            XLSX.writeFile(wb, filename);
         }
 
         // Cancel appointment
