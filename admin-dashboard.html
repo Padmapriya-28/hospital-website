@@ -328,7 +328,105 @@
                 grid-template-columns: 1fr;
             }
         }
-    </style>
+
+        /* Reports Section Styles */
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .chart-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: 0 0 15px rgba(181, 55, 242, 0.2);
+        }
+
+        .chart-title {
+            font-size: var(--font-size-lg);
+            color: var(--primary-light);
+            margin-top: 0;
+            margin-bottom: var(--spacing-lg);
+            text-shadow: 0 0 10px rgba(181, 55, 242, 0.3);
+            border-bottom: 1px solid var(--primary-color);
+            padding-bottom: var(--spacing-md);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .report-filters {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+            display: flex;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(181, 55, 242, 0.2);
+        }
+
+        .report-filters select,
+        .report-filters input {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--radius-md);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: var(--font-size-sm);
+        }
+
+        .report-btn {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background-color: var(--primary-color);
+            color: #000000;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-short);
+            box-shadow: 0 0 10px rgba(181, 55, 242, 0.3);
+        }
+
+        .report-btn:hover {
+            box-shadow: 0 0 20px rgba(181, 55, 242, 0.6);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .reports-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
 </head>
 <body>
     <div class="dashboard-container">
@@ -443,15 +541,109 @@
                         </ul>
                     </div>
                 </section>
+
+                <!-- Reports Section -->
+                <section id="reports" class="dashboard-section" style="display: none;">
+                    <h2 style="color: var(--primary-light); text-shadow: 0 0 15px rgba(181, 55, 242, 0.3); margin-bottom: var(--spacing-xl);">📈 Reports & Analytics</h2>
+
+                    <!-- Report Filters -->
+                    <div class="report-filters">
+                        <div>
+                            <label style="color: var(--text-secondary); font-size: var(--font-size-sm); margin-right: var(--spacing-sm);">Date Range:</label>
+                            <input type="date" id="reportStartDate" placeholder="Start Date">
+                            <span style="color: var(--text-secondary); margin: 0 var(--spacing-sm);">to</span>
+                            <input type="date" id="reportEndDate" placeholder="End Date">
+                        </div>
+                        <button class="report-btn" onclick="generateReports()">🔄 Generate Reports</button>
+                        <button class="report-btn" style="background-color: #10b981;" onclick="downloadReportPDF()">📥 Download PDF</button>
+                    </div>
+
+                    <!-- Charts Grid -->
+                    <div class="reports-grid">
+                        <!-- Appointment Status Distribution -->
+                        <div class="chart-card">
+                            <h3 class="chart-title">Appointment Status Distribution</h3>
+                            <div class="chart-container">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Appointments Over Time -->
+                        <div class="chart-card">
+                            <h3 class="chart-title">Appointments Trend</h3>
+                            <div class="chart-container">
+                                <canvas id="trendChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Performance -->
+                        <div class="chart-card">
+                            <h3 class="chart-title">Doctor Performance</h3>
+                            <div class="chart-container">
+                                <canvas id="doctorChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Patient Demographics -->
+                        <div class="chart-card">
+                            <h3 class="chart-title">Appointments by Time Slot</h3>
+                            <div class="chart-container">
+                                <canvas id="timeslotChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary Statistics -->
+                    <div class="management-section">
+                        <h3 class="section-title">📊 Summary Statistics</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg); margin-top: var(--spacing-lg);">
+                            <div style="background: rgba(181, 55, 242, 0.1); padding: var(--spacing-lg); border-radius: var(--radius-md); border-left: 3px solid #10b981;">
+                                <p style="color: var(--text-secondary); margin: 0 0 var(--spacing-xs) 0;">Total Appointments</p>
+                                <p style="color: var(--primary-light); font-size: var(--font-size-2xl); font-weight: 700; margin: 0;" id="stat-total">0</p>
+                            </div>
+                            <div style="background: rgba(181, 55, 242, 0.1); padding: var(--spacing-lg); border-radius: var(--radius-md); border-left: 3px solid #ffc107;">
+                                <p style="color: var(--text-secondary); margin: 0 0 var(--spacing-xs) 0;">Pending</p>
+                                <p style="color: #ffc107; font-size: var(--font-size-2xl); font-weight: 700; margin: 0;" id="stat-pending">0</p>
+                            </div>
+                            <div style="background: rgba(181, 55, 242, 0.1); padding: var(--spacing-lg); border-radius: var(--radius-md); border-left: 3px solid #10b981;">
+                                <p style="color: var(--text-secondary); margin: 0 0 var(--spacing-xs) 0;">Confirmed</p>
+                                <p style="color: #10b981; font-size: var(--font-size-2xl); font-weight: 700; margin: 0;" id="stat-confirmed">0</p>
+                            </div>
+                            <div style="background: rgba(181, 55, 242, 0.1); padding: var(--spacing-lg); border-radius: var(--radius-md); border-left: 3px solid #3b82f6;">
+                                <p style="color: var(--text-secondary); margin: 0 0 var(--spacing-xs) 0;">Completed</p>
+                                <p style="color: #3b82f6; font-size: var(--font-size-2xl); font-weight: 700; margin: 0;" id="stat-completed">0</p>
+                            </div>
+                            <div style="background: rgba(181, 55, 242, 0.1); padding: var(--spacing-lg); border-radius: var(--radius-md); border-left: 3px solid #ef4444;">
+                                <p style="color: var(--text-secondary); margin: 0 0 var(--spacing-xs) 0;">Cancelled</p>
+                                <p style="color: #ef4444; font-size: var(--font-size-2xl); font-weight: 700; margin: 0;" id="stat-cancelled">0</p>
+                            </div>
+                            <div style="background: rgba(181, 55, 242, 0.1); padding: var(--spacing-lg); border-radius: var(--radius-md); border-left: 3px solid #00f0ff;">
+                                <p style="color: var(--text-secondary); margin: 0 0 var(--spacing-xs) 0;">Avg Response Time</p>
+                                <p style="color: #00f0ff; font-size: var(--font-size-2xl); font-weight: 700; margin: 0;" id="stat-avgtime">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     </div>
 
     <script src="./js/auth.js"></script>
+    <!-- Chart.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
         // Require admin login - redirect if not logged in
         requireAdminLogin();
-        
+
+        // Chart objects
+        let charts = {};
+
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            generateReports();
+        });
+
         // Check if admin is logged in
         window.addEventListener('load', () => {
             const adminData = getAdminData();
@@ -472,17 +664,357 @@
         // Load sections
         function loadSection(section) {
             const sections = document.querySelectorAll('.dashboard-section');
-            sections.forEach(s => s.classList.remove('active'));
+            sections.forEach(s => {
+                s.style.display = 'none';
+                s.classList.remove('active');
+            });
             
             const targetSection = document.getElementById(section);
             if (targetSection) {
+                targetSection.style.display = 'block';
                 targetSection.classList.add('active');
+                
+                // Regenerate charts if reports section is loaded
+                if (section === 'reports') {
+                    setTimeout(() => {
+                        initializeCharts();
+                        generateReports();
+                    }, 100);
+                }
             }
             
             // Update sidebar active state
             const links = document.querySelectorAll('.sidebar-menu a');
             links.forEach(link => link.classList.remove('active'));
             event.target.classList.add('active');
+        }
+
+        /**
+         * Initialize chart objects
+         */
+        function initializeCharts() {
+            // Destroy existing charts
+            Object.values(charts).forEach(chart => {
+                if (chart) chart.destroy();
+            });
+            charts = {};
+
+            // Status Chart
+            const statusCtx = document.getElementById('statusChart');
+            if (statusCtx) {
+                charts.status = new Chart(statusCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Pending', 'Confirmed', 'Completed', 'Cancelled'],
+                        datasets: [{
+                            data: [0, 0, 0, 0],
+                            backgroundColor: ['#ffc107', '#10b981', '#3b82f6', '#ef4444'],
+                            borderColor: ['#ffb300', '#059669', '#1e40af', '#dc2626'],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#fff',
+                                    boxWidth: 15,
+                                    padding: 15
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Trend Chart
+            const trendCtx = document.getElementById('trendChart');
+            if (trendCtx) {
+                charts.trend = new Chart(trendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Appointments',
+                            data: [],
+                            borderColor: '#b537f2',
+                            backgroundColor: 'rgba(181, 55, 242, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#b537f2',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#fff'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: '#fff'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: '#fff'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Doctor Chart
+            const doctorCtx = document.getElementById('doctorChart');
+            if (doctorCtx) {
+                charts.doctor = new Chart(doctorCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Appointments',
+                            data: [],
+                            backgroundColor: '#b537f2',
+                            borderColor: '#7c1fa8',
+                            borderWidth: 2,
+                            borderRadius: 5
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#fff'
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: '#fff'
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: '#fff'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Timeslot Chart
+            const timeslotCtx = document.getElementById('timeslotChart');
+            if (timeslotCtx) {
+                charts.timeslot = new Chart(timeslotCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Morning\n(6-12)', 'Afternoon\n(12-18)', 'Evening\n(18-24)'],
+                        datasets: [{
+                            label: 'Appointments',
+                            data: [0, 0, 0],
+                            backgroundColor: ['#ff6b6b', '#4ecdc4', '#45b7d1'],
+                            borderColor: ['#ff5252', '#2eb09e', '#0088a8'],
+                            borderWidth: 2,
+                            borderRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#fff'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: '#fff'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: '#fff'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        /**
+         * Generate reports with data
+         */
+        function generateReports() {
+            // Get appointments from API or localStorage
+            const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+            
+            if (appointments.length === 0) {
+                showAlert('No appointments data available', 'info');
+                return;
+            }
+
+            // Calculate statistics
+            const stats = {
+                total: appointments.length,
+                pending: appointments.filter(a => a.status === 'pending').length,
+                confirmed: appointments.filter(a => a.status === 'confirmed').length,
+                completed: appointments.filter(a => a.status === 'completed').length,
+                cancelled: appointments.filter(a => a.status === 'cancelled').length
+            };
+
+            // Update summary statistics
+            document.getElementById('stat-total').textContent = stats.total;
+            document.getElementById('stat-pending').textContent = stats.pending;
+            document.getElementById('stat-confirmed').textContent = stats.confirmed;
+            document.getElementById('stat-completed').textContent = stats.completed;
+            document.getElementById('stat-cancelled').textContent = stats.cancelled;
+
+            // Update Status Chart
+            if (charts.status) {
+                charts.status.data.datasets[0].data = [
+                    stats.pending,
+                    stats.confirmed,
+                    stats.completed,
+                    stats.cancelled
+                ];
+                charts.status.update();
+            }
+
+            // Group by date for trend
+            const dateMap = {};
+            appointments.forEach(apt => {
+                const date = apt.date ? new Date(apt.date).toLocaleDateString('en-IN') : 'Unknown';
+                dateMap[date] = (dateMap[date] || 0) + 1;
+            });
+
+            const sortedDates = Object.keys(dateMap).sort();
+            const trendData = sortedDates.slice(-7); // Last 7 days
+            const trendCounts = trendData.map(date => dateMap[date]);
+
+            if (charts.trend) {
+                charts.trend.data.labels = trendData;
+                charts.trend.data.datasets[0].data = trendCounts;
+                charts.trend.update();
+            }
+
+            // Group by doctor
+            const doctorMap = {};
+            appointments.forEach(apt => {
+                const doctor = apt.doctor || 'Unknown';
+                doctorMap[doctor] = (doctorMap[doctor] || 0) + 1;
+            });
+
+            const topDoctors = Object.entries(doctorMap)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+
+            if (charts.doctor) {
+                charts.doctor.data.labels = topDoctors.map(d => d[0]);
+                charts.doctor.data.datasets[0].data = topDoctors.map(d => d[1]);
+                charts.doctor.update();
+            }
+
+            // Group by time slot
+            const timeSlotMap = { morning: 0, afternoon: 0, evening: 0 };
+            appointments.forEach(apt => {
+                const time = apt.time || '';
+                const hour = parseInt(time.split(':')[0]);
+                if (hour >= 6 && hour < 12) timeSlotMap.morning++;
+                else if (hour >= 12 && hour < 18) timeSlotMap.afternoon++;
+                else timeSlotMap.evening++;
+            });
+
+            if (charts.timeslot) {
+                charts.timeslot.data.datasets[0].data = [
+                    timeSlotMap.morning,
+                    timeSlotMap.afternoon,
+                    timeSlotMap.evening
+                ];
+                charts.timeslot.update();
+            }
+        }
+
+        /**
+         * Download report as PDF (requires html2pdf library)
+         */
+        function downloadReportPDF() {
+            showAlert('📥 Downloading report...', 'success');
+            // Implementation requires html2pdf library
+            setTimeout(() => {
+                showAlert('Report download feature coming soon!', 'info');
+            }, 1000);
+        }
+
+        /**
+         * Show alert message
+         */
+        function showAlert(message, type = 'info') {
+            const alertDiv = document.createElement('div');
+            alertDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                background-color: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+                color: white;
+                font-weight: 500;
+                z-index: 9999;
+                max-width: 400px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                animation: slideIn 0.3s ease-out;
+            `;
+
+            alertDiv.textContent = message;
+            document.body.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 4000);
         }
 
         // Update appointment count
