@@ -29,6 +29,7 @@
                 <span></span>
                 <span></span>
             </div>
+            <a href="./login.html" class="btn btn-primary btn-sm" style="margin-left: auto; padding: 0.5rem 1rem; font-size: 0.875rem;">Logout</a>
         </div>
     </nav>
 
@@ -99,7 +100,11 @@
     </footer>
 
     <script src="./js/script.js"></script>
+    <script src="./js/auth.js"></script>
     <script>
+        // Require patient login - redirect if not logged in
+        requirePatientLogin();
+
         // Load and display appointments from LocalStorage
         function loadMyAppointments() {
             const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
@@ -170,10 +175,8 @@
             }
         }
 
-        // Load appointments when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            loadMyAppointments();
-        });
+        // Load appointments on page load
+        loadMyAppointments();
     </script>
 </body>
 </html>

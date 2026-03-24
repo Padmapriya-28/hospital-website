@@ -25,10 +25,19 @@ npx http-server
 # Then visit: http://localhost:8080
 ```
 
-#### 💻 Method C: VS Code Live Server
+#### 💻 Method C: PHP Built-in Server (For PHP Backend)
+```bash
+# PHP 5.4+
+php -S localhost:8000
+
+# Then visit: http://localhost:8000
+```
+
+#### 🎨 Method D: VS Code Live Server
 1. Open project in VS Code
 2. Install "Live Server" extension
 3. Right-click `index.html` → "Open with Live Server"
+4. **Note**: PHP endpoints won't work with Live Server - use Method C for full backend
 
 ---
 
@@ -48,7 +57,8 @@ After opening in browser, test:
 
 ### 3. Appointment Booking
 - [ ] Fill form with valid data and submit
-- [ ] Success message appears
+- [ ] Success message appears with appointment ID
+- [ ] Appointment saved to database
 - [ ] Try submitting with empty fields (validation errors show)
 - [ ] Try invalid email (shows error)
 - [ ] Try past date (shows error)
@@ -325,3 +335,102 @@ All files include detailed comments:
 **Ready to go!** 🎉 Open the website and explore all features.
 
 For detailed documentation, see [README.md](README.md)
+
+---
+
+## 🎉 NEW: PHP Backend - Database & Admin Panel (v2.0)
+
+### What's New?
+Your hospital website now includes a complete PHP backend with:
+- ✅ **Database Storage** - SQLite database for appointments
+- ✅ **Admin Panel** - Manage appointments in real-time
+- ✅ **API Endpoints** - RESTful API for data operations
+- ✅ **Contact Management** - Contact form with database storage
+- ✅ **Responsive Admin UI** - Mobile-optimized appointment management
+
+### Start the PHP Backend Server
+```bash
+php -S localhost:8000
+```
+Then visit: http://localhost:8000
+
+### Test the New Features
+
+#### 1. Book an Appointment
+1. Go to http://localhost:8000/appointments.html
+2. Fill in the appointment form
+3. Doctors load automatically from database
+4. Submit - appointment saved to database
+5. Success message shows with appointment ID
+
+#### 2. Manage Appointments (Admin)
+1. Go to http://localhost:8000/admin-appointments.php
+2. Login as admin (if required)
+3. View appointment statistics dashboard
+4. Search appointments by patient name
+5. Filter by status or date
+6. Click "View" for details
+7. Click "Confirm" to update status
+
+#### 3. Contact Form
+1. Go to http://localhost:8000/contact.html
+2. Submit contact form
+3. Data saved to database
+4. Confirmation message shown
+
+### New Files Added
+```
+├── config.php                      ← Database config
+├── admin-appointments.php          ← Admin dashboard  
+├── api/
+│   ├── appointments.php            ← API endpoints
+│   ├── doctors.php                 ← Doctors list API
+│   └── contact.php                 ← Contact handler
+└── data/
+    └── hospital.db                 ← Auto-created database
+```
+
+### API Quick Reference
+
+**Get all appointments:**
+```bash
+curl http://localhost:8000/api/appointments.php
+```
+
+**Create appointment:**
+```bash
+curl -X POST http://localhost:8000/api/appointments.php \
+  -H "Content-Type: application/json" \
+  -d '{"patient_name":"John","patient_email":"john@test.com",...}'
+```
+
+**Update status:**
+```bash
+curl -X PUT "http://localhost:8000/api/appointments.php?id=1" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"confirmed"}'
+```
+
+### Features Highlight (Updated)
+
+| Feature | Status |
+|---------|--------|
+| Responsive Design | ✅ Complete |
+| Dark Medical Theme | ✅ Complete |
+| 6 Full Pages | ✅ Complete |
+| Doctor Profiles | ✅ Complete |
+| Appointment Booking | ✅ Complete |
+| **Form Validation** | ✅ **Enhanced** |
+| **Contact Form** | ✅ **DB Enabled** |
+| Mobile Navigation | ✅ Complete |
+| **Database Storage** | ✅ **NEW - SQLite** |
+| **Admin Panel** | ✅ **NEW** |
+| **API Endpoints** | ✅ **NEW** |
+| **Real-time Updates** | ✅ **NEW** |
+| Smooth Animations | ✅ Complete |
+| Emergency Contact | ✅ Complete |
+
+### Documentation
+- `QUICK_START.md` (this file) - Setup guide
+- `BACKEND_IMPLEMENTATION_GUIDE.md` - Feature guide with examples
+- `PHP_BACKEND_SETUP.md` - Complete API documentation

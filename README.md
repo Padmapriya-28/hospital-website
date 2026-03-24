@@ -125,11 +125,11 @@ hospital-website/
    ```
 
 2. **Start a simple HTTP server**
-   - **Python 3.x:**
+   - **Python 3.x (Current):** ⭐ Use this
      ```bash
      python -m http.server 8000
      ```
-   - **Python 2.x:**
+   - **Python 2.x (Legacy):**
      ```bash
      python -m SimpleHTTPServer 8000
      ```
